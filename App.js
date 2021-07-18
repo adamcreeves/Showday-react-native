@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Home from './src/Home';
+import Login from './src/Login';
+import Events from './src/Events';
+import Landing from './src/Landing';
+import Signup from './src/Signup';
+
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='Landing' component={Landing} />
+        <Stack.Screen name='Login' component={Login}/>
+        <Stack.Screen name='Signup' component={Signup} />
+        <Stack.Screen name='AfterLogin' component={AfterLogin}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function AfterLogin() {
+  return (
+    <Drawer.Navigator initialRouteName='Home'>
+      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Events" component={Events} />
+    </Drawer.Navigator>
+  );
+}
