@@ -8,12 +8,14 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-firebase/app": "^12.2.0",
     "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
     "android-platform-tools": "^3.0.2",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
+    "firebase": "^8.7.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
