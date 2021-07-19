@@ -20,7 +20,8 @@ export default StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: "#000"
+        borderColor: "#000",
+        marginBottom: 20,
     },
     button_text: {
         fontWeight: "bold",

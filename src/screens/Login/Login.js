@@ -9,28 +9,34 @@ function Login({ navigation }) {
     const [password, setPassword] = useState('');
     
     const onSigninPressed = () => {
-        firebase.auth()
-            .signInWithEmailAndPassword(email, password)
-            .then((response) => {
-                const uid = response.user.uid;
-                const usersRef = firebase.firestore().collection('users')
-                usersRef.doc(uid)
-                    .get()
-                    .then(firestoreDocument => {
-                        if (!firestoreDocument.exists) {
-                            alert('This user isn\'t registered');
-                            return;
-                        }
-                        const user = firestoreDocument.data()
-                        navigation.navigate('AfterLogin', {user});
-                    })
-                    .catch(error => {
-                        alert(error);
-                    })
-            })
-            .catch(error => {
-                alert(error);
-            })
+        if (email === '' || password === '') {
+            alert('Email and password required for sign in')
+        } else {
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(email, password)
+                .then((response) => {
+                    const uid = response.user.uid;
+                    const usersRef = firebase.firestore().collection('users')
+                    usersRef
+                        .doc(uid)
+                        .get()
+                        .then(firestoreDocument => {
+                            if (!firestoreDocument.exists) {
+                                alert('This user isn\'t registered');
+                                return;
+                            }
+                            const user = firestoreDocument.data()
+                            navigation.navigate('AfterLogin', {user});
+                        })
+                        .catch(error => {
+                            alert(error);
+                        })
+                })
+                .catch(() => {
+                    alert('Username or password incorrect');
+                });
+        }
     }
 
     return (
