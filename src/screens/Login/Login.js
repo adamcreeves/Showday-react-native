@@ -47,7 +47,8 @@ function Login({ navigation }) {
                 placeholder="Email"
                 placeholderTextColor="#adadad"
                 onChangeText={(text) => setEmail(text)}
-                value={email} />
+                value={email}
+                textContentType="emailAddress" />
             <TextInput 
                 style={styles.text__input}
                 placeholder="Password"

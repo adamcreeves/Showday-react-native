@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { firebase } from '../../firebase/config';
 import styles from './RegisterStyles';
 
-function Register({ navigation }) {
+function RegisterGuest({ navigation }) {
 
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -26,6 +26,7 @@ function Register({ navigation }) {
                         id: uid,
                         email,
                         fullName,
+                        acctType: 'guest',
                     };
                     const userRef = firebase.firestore().collection('users')
                     userRef.doc(uid)
@@ -46,7 +47,8 @@ function Register({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Registration</Text>
+            <Text style={styles.text__title}>Guest</Text>
+            <Text style={styles.text__subtitle}>Registration</Text>
             <TextInput
                 style={styles.text__input}
                 placeholder='Full Name'
@@ -64,6 +66,7 @@ function Register({ navigation }) {
                 value={email}
                 underlineColorAndroid="transparent"
                 autoCapitalize="none" 
+                textContentType="emailAddress"
             />
             <TextInput 
                 style={styles.text__input}
@@ -94,4 +97,4 @@ function Register({ navigation }) {
     );
 }
 
-export default Register;
+export default RegisterGuest;

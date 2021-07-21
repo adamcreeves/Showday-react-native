@@ -6,9 +6,12 @@ export default StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    text: {
+    text__title: {
         fontSize: 35,
         fontWeight: 'bold',
+    },
+    text__subtitle: {
+        fontSize: 20,
         marginBottom: 20,
     },
     text__input: {
