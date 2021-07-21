@@ -59,8 +59,10 @@ function Login({ navigation }) {
             <TouchableOpacity 
                 style={styles.button}
                 onPress={onSigninPressed}>
-                    <Text style={styles.button_text}>Sign in</Text>
+                    <Text style={styles.button__text}>Sign in</Text>
             </TouchableOpacity>
+            <Text style={styles.footer__text}>Need to Sign up?</Text>
+            <Text style={styles.footer__link} onPress={() => navigation.navigate('Register')}>Create an account here</Text>
         </View>
     );
 }

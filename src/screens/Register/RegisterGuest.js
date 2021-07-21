@@ -91,8 +91,10 @@ function RegisterGuest({ navigation }) {
             <TouchableOpacity 
                 style={styles.button}
                 onPress={onCreateAccountPressed}>
-                    <Text style={styles.button_text}>Create Account</Text>
+                    <Text style={styles.button__text}>Create Account</Text>
             </TouchableOpacity>
+            <Text style={styles.footer__text}>Already have an account?</Text>
+            <Text style={styles.footer__link} onPress={() => navigation.navigate('Login')}>Sign in here</Text>
         </View>
     );
 }

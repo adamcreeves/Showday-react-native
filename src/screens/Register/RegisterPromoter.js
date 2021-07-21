@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { firebase } from '../../firebase/config';
 import styles from './RegisterStyles';
 
-function RegisterVendor({ navigation }) {
+function RegisterPromoter({ navigation }) {
 
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -26,7 +26,7 @@ function RegisterVendor({ navigation }) {
                         id: uid,
                         email,
                         fullName,
-                        acctType: 'vendor',
+                        acctType: 'promoter',
                     };
                     const userRef = firebase.firestore().collection('users')
                     userRef.doc(uid)
@@ -47,7 +47,7 @@ function RegisterVendor({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text__title}>Vendor</Text>
+            <Text style={styles.text__title}>Promoter</Text>
             <Text style={styles.text__subtitle}>Registration</Text>
             <TextInput
                 style={styles.text__input}
@@ -99,4 +99,4 @@ function RegisterVendor({ navigation }) {
     );
 }
 
-export default RegisterVendor;
+export default RegisterPromoter;

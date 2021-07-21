@@ -31,8 +31,17 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: "#000"
     },
-    button_text: {
+    button__text: {
         fontWeight: "bold",
         fontSize: 20
+    },
+    footer__text : {
+        marginTop: 25,
+        fontSize: 20
+    },
+    footer__link: {
+        fontSize: 22,
+        color: '#0000FF',
+        fontWeight: 'bold',
     }
   });
