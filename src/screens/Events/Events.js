@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from '../../firebase/config';
 import styles from './EventsStyles';
+import EventDetails from './EventDetails';
 
 function Events(props) {
     const [events, setEvents] = useState([]);
@@ -35,14 +36,25 @@ function Events(props) {
 
     const renderEvent = ({item}) => {
         return (
-            <View style={styles.flatlist__Item}>
-                <Text style={styles.flatlist__Text}>{item.eventName}</Text>
-                <Text style={styles.flatlist__Text}>{item.eventLocation}</Text>
+            <TouchableOpacity 
+                style={styles.flatlist__Item}
+                onPress={() => nav.navigate('EventDetails', {item})}>
                 <View style={styles.flatlist__ItemRow}>
-                    <Text style={styles.flatlist__Text}>{item.eventDate}</Text>
-                    <Text style={styles.flatlist__Text}>{item.eventEntryFee}</Text>
+                    {item.eventImageUri ? 
+                        <Image 
+                            source={{uri: item.eventImageUri}} 
+                            style={{height: 100, width: 100, margin: 5}} /> 
+                    : null}
+                    <View style={{ width: 245}}>
+                        <Text style={styles.flatlist__TitleText}>{item.eventName}</Text>
+                        <Text style={styles.flatlist__Text}>{item.eventLocation}</Text>
+                        <View style={styles.flatlist__ItemRow}>
+                            <Text style={styles.flatlist__Text}>{item.eventDate}</Text>
+                            <Text style={styles.flatlist__Text}>{item.eventEntryFee}</Text>
+                        </View>
+                    </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -61,7 +73,7 @@ function Events(props) {
             ) : null} 
             {events.length > 0 ? (
                 <View 
-                style={{flex: 1}} >
+                style={{flex: 1, borderColor: 'black', borderWidth: 1, margin: 5}} >
                     <Text style={styles.text}>Upcoming Events</Text>  
                     <FlatList
                         data={events}

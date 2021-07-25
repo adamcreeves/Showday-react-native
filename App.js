@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { Login, Home, Events, CreateEvent } from './src/screens/';
+import { Login, Home, Events, CreateEvent, EventDetails } from './src/screens/';
 import { Registration } from './src/navigation';
 import { firebase } from './src/firebase/config';
 import { TouchableOpacity, Image, View } from 'react-native';
@@ -103,7 +103,10 @@ export default function App({navigation}) {
               ),
             headerRightContainerStyle: {marginRight: 20}}}>
               {props => <CreateEvent {...props} extraData={user} />}
-            </Stack.Screen>
+          </Stack.Screen>
+          <Stack.Screen name='EventDetails' options={{headerTitle: 'Event Details', headerTitleAlign: 'center'}}>
+            {props => <EventDetails {...props} />}
+          </Stack.Screen>
           <Stack.Screen name='Login' component={Login}/>
           <Stack.Screen name='Register' component={Registration} />
         </Stack.Navigator>

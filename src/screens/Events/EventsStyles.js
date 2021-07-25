@@ -8,21 +8,27 @@ export default StyleSheet.create({
     text: {
         fontSize: 35,
         fontWeight: 'bold',
-        marginTop: 15,
+        margin: 10,
         textAlign: 'center',
     },
     flatlist__Item: {
         alignItems:'center',
-        margin: 5,
+        margin: 8,
         borderWidth: 2,
         borderRadius: 5,
         borderColor: 'red',
         padding: 10,
-        width: 300
+        width: 360
     },
     flatlist__ItemRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between', 
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    flatlist__TitleText: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        margin: 5,
     },
     flatlist__Text: {
         fontSize: 18,
@@ -30,7 +36,7 @@ export default StyleSheet.create({
     },
     button: {
         padding: 10,
-        width: 300,
+        width: 225,
         alignItems: 'center',
         borderRadius: 5,
         borderWidth: 1,

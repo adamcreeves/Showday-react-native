@@ -16,6 +16,7 @@
     "@react-navigation/stack": "^5.14.5",
     "android-platform-tools": "^3.0.2",
     "expo": "~42.0.1",
+    "expo-image-picker": "^10.2.2",
     "expo-status-bar": "~1.0.4",
     "firebase": "^8.7.1",
     "react": "16.13.1",
