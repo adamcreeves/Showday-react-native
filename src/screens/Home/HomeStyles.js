@@ -4,25 +4,31 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        paddingTop: 25,
+    },
+    button__row: {
+        flexDirection: 'row',
+        marginTop: 10,
     },
     text: {
         fontSize: 35,
         fontWeight: 'bold',
-        marginTop: 40,
         marginBottom: 10,
     },
     button: {
-        backgroundColor: "#00CCCC",
         padding: 10,
-        width: 300,
+        width: 170,
+        height: 170,
         alignItems: 'center',
-        borderRadius: 10,
-        borderWidth: 1,
+        justifyContent: 'center',
+        borderRadius: 5,
+        borderWidth: 2,
         borderColor: "#000",
-        marginBottom: 20,
+        margin: 10,
     },
-    button_text: {
+    button__text: {
         fontWeight: "bold",
-        fontSize: 20
+        fontSize: 20,
+        textAlign: 'center',
     }
 });

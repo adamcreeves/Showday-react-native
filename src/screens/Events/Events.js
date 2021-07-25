@@ -1,11 +1,77 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import styles from './EventsStyles'
+import React, { useEffect, useState } from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { firebase } from '../../firebase/config';
+import styles from './EventsStyles';
 
-function Events() {
+function Events(props) {
+    const [events, setEvents] = useState([]);
+    const nav = useNavigation();
+    const eventRef = firebase.firestore().collection('events');
+    
+    let userType = null;
+    if (props.extraData !== null) {
+        userType = props.extraData.acctType;
+    }
+
+    useEffect(() => {
+        eventRef
+            .orderBy('eventDate', 'asc')
+            .onSnapshot(
+                querySnapshot => {
+                    const newEvents = []
+                    querySnapshot.forEach(doc => {
+                        const event = doc.data();
+                        event.id = doc.id;
+                        newEvents.push(event);
+                    });
+                    setEvents(newEvents);
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+    }, []);
+
+    const renderEvent = ({item}) => {
+        return (
+            <View style={styles.flatlist__Item}>
+                <Text style={styles.flatlist__Text}>{item.eventName}</Text>
+                <Text style={styles.flatlist__Text}>{item.eventLocation}</Text>
+                <View style={styles.flatlist__ItemRow}>
+                    <Text style={styles.flatlist__Text}>{item.eventDate}</Text>
+                    <Text style={styles.flatlist__Text}>{item.eventEntryFee}</Text>
+                </View>
+            </View>
+        );
+    }
+
+    const createEventPressed = () => {
+        nav.navigate('CreateEvent');
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Events</Text>
+            {userType !== null && userType === 'promoter' ? (
+                <TouchableOpacity 
+                    onPress={createEventPressed}
+                    style={styles.button}>
+                    <Text style={styles.button__text}>Create New Event</Text>
+                </TouchableOpacity>
+            ) : null} 
+            {events.length > 0 ? (
+                <View 
+                style={{flex: 1}} >
+                    <Text style={styles.text}>Upcoming Events</Text>  
+                    <FlatList
+                        data={events}
+                        renderItem={renderEvent}
+                        keyExtractor={(item) => item.id}
+                        removeClippedSubviews={true}
+                    />
+                </View>
+            ) : <Text style={styles.text}>{'There are no upcoming events scheduled.\nCheck back soon'}</Text>
+            }
         </View>
     );
 }

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, Keyboard } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { firebase } from '../../firebase/config';
 import styles from './LoginStyles';
 
-function Login({ navigation }) {
-
+function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const nav = useNavigation();
     
     const onSigninPressed = () => {
         if (email === '' || password === '') {
@@ -26,8 +28,9 @@ function Login({ navigation }) {
                                 alert('This user isn\'t registered');
                                 return;
                             }
-                            const user = firestoreDocument.data()
-                            navigation.navigate('AfterLogin', {user});
+                            const user = firestoreDocument.data();
+                            Keyboard.dismiss();
+                            nav.navigate('Home');
                         })
                         .catch(error => {
                             alert(error);
@@ -41,7 +44,8 @@ function Login({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Showday Login</Text>
+            <Text style={styles.text}>Showday</Text>
+            <Text style={styles.text}>Login</Text>
             <TextInput 
                 style={styles.text__input}
                 placeholder="Email"

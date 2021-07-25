@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { Keyboard, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { firebase } from '../../firebase/config';
 import styles from './RegisterStyles';
 
@@ -32,8 +32,8 @@ function RegisterPromoter({ navigation }) {
                     userRef.doc(uid)
                         .set(data)
                         .then(() => {
-                            alert('Registration Successful!')
-                            navigation.navigate('Login', {user: data});
+                            alert('Registration Successful!');
+                            Keyboard.dismiss();
                         })
                         .catch((error) => {
                             alert(error);

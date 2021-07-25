@@ -9,6 +9,9 @@ export default StyleSheet.create({
     text: {
         fontSize: 35,
         fontWeight: 'bold',
+    },
+    text__subtitle: {
+        fontSize: 27,
         marginBottom: 20,
     },
     text__input: {
@@ -20,7 +23,6 @@ export default StyleSheet.create({
         padding: 7,
     },
     button: {
-        backgroundColor: "#00CCCC",
         padding: 10,
         width: 300,
         alignItems: 'center',

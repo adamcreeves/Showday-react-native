@@ -23,7 +23,6 @@ export default StyleSheet.create({
         padding: 7,
     },
     button: {
-        backgroundColor: "#00CCCC",
         padding: 10,
         width: 300,
         alignItems: 'center',
