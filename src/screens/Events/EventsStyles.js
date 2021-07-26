@@ -47,6 +47,9 @@ export default StyleSheet.create({
         fontWeight: "bold",
         fontSize: 20
     },
+    spinnerTextStyle: {
+        color: '#aaaaaa'
+    },
     text__input: {
         width: 275,
         height: 50,

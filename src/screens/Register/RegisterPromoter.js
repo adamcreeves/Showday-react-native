@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Keyboard, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { firebase } from '../../firebase/config';
+import { useNavigation } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import styles from './RegisterStyles';
 
-function RegisterPromoter({ navigation }) {
-
+function RegisterPromoter() {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [visible, setVisible] = useState(false);
+    const nav = useNavigation();
 
     const onCreateAccountPressed = () => {
         if (fullName === '' || email === '' ||  password === '') {
@@ -18,6 +21,8 @@ function RegisterPromoter({ navigation }) {
         } else if (password !== confirmPassword) {
             alert('Your passwords don\'t match');
         } else {
+            Keyboard.dismiss();
+            setVisible(true);
             firebase.auth()
                 .createUserWithEmailAndPassword(email, password)
                 .then((response) => {
@@ -47,6 +52,7 @@ function RegisterPromoter({ navigation }) {
 
     return (
         <View style={styles.container}>
+            <Spinner visible={visible} />
             <Text style={styles.text__title}>Promoter</Text>
             <Text style={styles.text__subtitle}>Registration</Text>
             <TextInput
@@ -94,7 +100,7 @@ function RegisterPromoter({ navigation }) {
                     <Text style={styles.button__text}>Create Account</Text>
             </TouchableOpacity>
             <Text style={styles.footer__text}>Already have an account?</Text>
-            <Text style={styles.footer__link} onPress={() => navigation.navigate('Login')}>Sign in here</Text>
+            <Text style={styles.footer__link} onPress={() => nav.navigate('Login')}>Sign in here</Text>
         </View>
     );
 }

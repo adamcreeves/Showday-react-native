@@ -3,13 +3,15 @@ import { FlatList, Text, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from '../../firebase/config';
 import styles from './EventsStyles';
-import EventDetails from './EventDetails';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 function Events(props) {
     const [events, setEvents] = useState([]);
+    const [noEvents, setNoEvents] = useState(false);
+    const [visible, setVisible] = useState(true);
     const nav = useNavigation();
     const eventRef = firebase.firestore().collection('events');
-    
+
     let userType = null;
     if (props.extraData !== null) {
         userType = props.extraData.acctType;
@@ -27,6 +29,8 @@ function Events(props) {
                         newEvents.push(event);
                     });
                     setEvents(newEvents);
+                    setNoEvents(true);
+                    setVisible(false)
                 },
                 error => {
                     console.log(error);
@@ -57,6 +61,15 @@ function Events(props) {
             </TouchableOpacity>
         );
     }
+    const renderLoadingOrNoEvents = () => {
+        if (!noEvents) {
+            return <Text style={styles.text}></Text>
+        } else {
+            return <Text style={styles.text}>
+                    {'There are no upcoming events scheduled.\nCheck back soon'}
+                </Text>
+        }
+    }
 
     const createEventPressed = () => {
         nav.navigate('CreateEvent');
@@ -64,6 +77,7 @@ function Events(props) {
 
     return (
         <View style={styles.container}>
+            <Spinner visible={visible} />
             {userType !== null && userType === 'promoter' ? (
                 <TouchableOpacity 
                     onPress={createEventPressed}
@@ -82,7 +96,7 @@ function Events(props) {
                         removeClippedSubviews={true}
                     />
                 </View>
-            ) : <Text style={styles.text}>{'There are no upcoming events scheduled.\nCheck back soon'}</Text>
+            ) : renderLoadingOrNoEvents()
             }
         </View>
     );

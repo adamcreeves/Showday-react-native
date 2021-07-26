@@ -5,10 +5,11 @@ import { Login, Home, Events, CreateEvent, EventDetails } from './src/screens/';
 import { Registration } from './src/navigation';
 import { firebase } from './src/firebase/config';
 import { TouchableOpacity, Image, View } from 'react-native';
+import Logout from './src/screens/Logout/Logout';
 
 const Stack = createStackNavigator();
 
-export default function App({navigation}) {
+export default function App() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null);
 
@@ -31,15 +32,13 @@ export default function App({navigation}) {
         setLoading(false)
       }
     });
-  }, []);
+  }, [user]);
 
   if (loading) {	
     return (	
       <></>	
     )	
   }
-
-  
 
   return (
     <NavigationContainer>
@@ -55,21 +54,6 @@ export default function App({navigation}) {
                     <Image source={require('./assets/menuicon.png')} />
                 </TouchableOpacity>
               ),
-              // headerLeft: () => (
-              //   <View>
-              //     {user ? (
-              //       <TouchableOpacity 
-              //         onPress={logout}>
-              //           <Image source={require('./assets/logout.png')} />
-              //       </TouchableOpacity>
-              //     ) : (
-              //       <TouchableOpacity
-              //         onPress={login}>
-              //           <Image source={require('./assets/login.png')} />
-              //         </TouchableOpacity>
-              //     )}
-              //   </View>
-              // ),
               headerLeftContainerStyle: {marginLeft: 20},
               headerRightContainerStyle: {marginRight: 20}}}>
                 {props => <Home {...props} extraData={user} />}
@@ -108,6 +92,7 @@ export default function App({navigation}) {
             {props => <EventDetails {...props} />}
           </Stack.Screen>
           <Stack.Screen name='Login' component={Login}/>
+          <Stack.Screen name='Logout' component={Logout} />
           <Stack.Screen name='Register' component={Registration} />
         </Stack.Navigator>
     </NavigationContainer>

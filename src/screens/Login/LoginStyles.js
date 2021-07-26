@@ -34,6 +34,9 @@ export default StyleSheet.create({
         fontWeight: "bold",
         fontSize: 20
     },
+    spinnerTextStyle: {
+        color: '#aaaaaa'
+    },
     footer__text : {
         marginTop: 25,
         fontSize: 20

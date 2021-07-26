@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, TextInput, Keyboard } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import { firebase } from '../../firebase/config';
 import styles from './LoginStyles';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [visible, setVisible] = useState(false);
 
     const nav = useNavigation();
     
@@ -14,6 +16,8 @@ function Login() {
         if (email === '' || password === '') {
             alert('Email and password required for sign in')
         } else {
+            Keyboard.dismiss();
+            setVisible(true);
             firebase
                 .auth()
                 .signInWithEmailAndPassword(email, password)
@@ -29,7 +33,6 @@ function Login() {
                                 return;
                             }
                             const user = firestoreDocument.data();
-                            Keyboard.dismiss();
                             nav.navigate('Home');
                         })
                         .catch(error => {
@@ -44,6 +47,7 @@ function Login() {
 
     return (
         <View style={styles.container}>
+            <Spinner visible={visible} />
             <Text style={styles.text}>Showday</Text>
             <Text style={styles.text}>Login</Text>
             <TextInput 
@@ -66,7 +70,7 @@ function Login() {
                     <Text style={styles.button__text}>Sign in</Text>
             </TouchableOpacity>
             <Text style={styles.footer__text}>Need to Sign up?</Text>
-            <Text style={styles.footer__link} onPress={() => navigation.navigate('Register')}>Create an account here</Text>
+            <Text style={styles.footer__link} onPress={() => nav.navigate('Register')}>Create an account here</Text>
         </View>
     );
 }

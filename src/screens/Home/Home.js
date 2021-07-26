@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { firebase } from '../../firebase/config';
@@ -6,6 +6,7 @@ import styles from './HomeStyles';
 
 
 function Home(props) {
+    const [loginButtonDisplay, setLoginButtonDisplay] = useState(true)
     const user = props.extraData;
     const nav = useNavigation();
 
@@ -14,31 +15,38 @@ function Home(props) {
       }
     
     const logout = () => {
-        firebase.auth().signOut().then(() => {
-          alert('You have been logged out');
-        })
-        .catch(error => alert(error.message));
+        nav.navigate('Logout');
     }
-
-    nav.setOptions({
-        headerLeft: () => (
-            <View>
-              {user ? (
+    const renderLoginLogout = () => {
+        if (user) {
+            setLoginButtonDisplay(false);
+        }
+        if (loginButtonDisplay) {
+            return (
+                <TouchableOpacity
+                    onPress={login}>
+                    <Text>Login</Text>
+                    {/* <Image source={require('../../../assets/login.png')} /> */}
+                </TouchableOpacity>)
+        } else {
+            return (
                 <TouchableOpacity 
                   onPress={logout}>
                   <Text>Logout</Text>
                     {/* <Image source={require('../../../assets/logout.png')} /> */}
                 </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={login}>
-                      <Text>Login</Text>
-                    {/* <Image source={require('../../../assets/login.png')} /> */}
-                  </TouchableOpacity>
-              )}
+            );
+        }
+    }
+
+    nav.setOptions({
+        headerLeft: () => (
+            <View>
+              {renderLoginLogout()}
             </View>
           ),
     })
+
     const onEventsPressed = () => {
         nav.navigate('Events');
     }
