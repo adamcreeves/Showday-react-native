@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/roboto": "^0.2.0",
     "@expo/vector-icons": "^12.0.5",
     "@react-native-firebase/app": "^12.2.0",
     "@react-navigation/bottom-tabs": "^5.11.11",
@@ -24,6 +25,8 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-icons": "^0.7.1",
     "react-native-loading-spinner-overlay": "^2.0.0",
+    "react-native-modal": "^12.0.3",
+    "react-native-neat-date-picker": "^1.0.6",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12"
   },

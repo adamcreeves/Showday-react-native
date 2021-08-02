@@ -41,6 +41,7 @@ function Login() {
                 })
                 .catch(() => {
                     alert('Username or password incorrect');
+                    setVisible(false);
                 });
         }
     }

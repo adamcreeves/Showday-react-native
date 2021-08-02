@@ -1,100 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { Login, Home, Events, CreateEvent, EventDetails } from './src/screens/';
+import { Login, Home, CreateEvent, EventDetails } from './src/screens/index';
 import { Registration } from './src/navigation';
-import { firebase } from './src/firebase/config';
-import { TouchableOpacity, Image, View } from 'react-native';
 import Logout from './src/screens/Logout/Logout';
+import { firebase } from './src/firebase/config';
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null);
+  const usersRef = firebase.firestore().collection('users');
 
   useEffect(() => {
-    const usersRef = firebase.firestore().collection('users');
-    firebase.auth().onAuthStateChanged(user => {
+      const unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        usersRef
+          usersRef
           .doc(user.uid)
           .get()
           .then((document) => {
-            const userData = document.data()
-            setLoading(false)
-            setUser(userData);
+              const userData = document.data()
+              setUser(userData);
           })
           .catch((error) => {
-            setLoading(false)
+              console.log(error);
           });
-      } else {
-        setLoading(false)
       }
-    });
-  }, [user]);
-
-  if (loading) {	
-    return (	
-      <></>	
-    )	
-  }
+      });
+      return () => unsubscribe();
+  }, []);
 
   return (
-    <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen 
-            name="Home"  
-            options={{ 
-              headerTitle: 'Showday',
-              headerTitleAlign: 'center',
-              headerRight: () => (
-                <TouchableOpacity 
-                  onPress={() => alert('This is the menu button')}>
-                    <Image source={require('./assets/menuicon.png')} />
-                </TouchableOpacity>
-              ),
-              headerLeftContainerStyle: {marginLeft: 20},
-              headerRightContainerStyle: {marginRight: 20}}}>
-                {props => <Home {...props} extraData={user} />}
-              </Stack.Screen>
-          <Stack.Screen 
-            name="Events" 
-            options={{ 
-              headerTitle: 'Events',
-              headerTitleAlign: 'center',
-              headerRight: () => (
-                <TouchableOpacity 
-                  onPress={() => alert('This is the menu button')} 
-                  style={{ marginLeft: 20}} >
-                    <Image source={require('./assets/menuicon.png')} />
-                </TouchableOpacity>
-              ),
-            headerRightContainerStyle: {marginRight: 20}}}>
-              {props => <Events {...props} extraData={user} />}
+      <NavigationContainer>
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Home">
+              {props => <Home {...props} extraData={user} />}
             </Stack.Screen>
-          <Stack.Screen 
-            name='CreateEvent'
-            options={{ 
-              headerTitle: 'Create New Event',
-              headerTitleAlign: 'center',
-              headerRight: () => (
-                <TouchableOpacity 
-                  onPress={() => alert('This is the menu button')} 
-                  style={{ marginLeft: 20}} >
-                    <Image source={require('./assets/menuicon.png')} />
-                </TouchableOpacity>
-              ),
-            headerRightContainerStyle: {marginRight: 20}}}>
-              {props => <CreateEvent {...props} extraData={user} />}
-          </Stack.Screen>
-          <Stack.Screen name='EventDetails' options={{headerTitle: 'Event Details', headerTitleAlign: 'center'}}>
-            {props => <EventDetails {...props} />}
-          </Stack.Screen>
-          <Stack.Screen name='Login' component={Login}/>
-          <Stack.Screen name='Logout' component={Logout} />
-          <Stack.Screen name='Register' component={Registration} />
-        </Stack.Navigator>
-    </NavigationContainer>
+            <Stack.Screen name='CreateEvent' component={CreateEvent} />
+            <Stack.Screen name='EventDetails' component={EventDetails} />
+            <Stack.Screen name='Login' component={Login}/>
+            <Stack.Screen name='Logout' component={Logout} />
+            <Stack.Screen name='Register' component={Registration} />
+          </Stack.Navigator>
+      </NavigationContainer>
   );
 }
+
+// options={{ 
+//   headerTitle: 'Showday',
+//   headerTitleAlign: 'center',
+//   headerRight: () => (
+//     <TouchableOpacity 
+//       onPress={() => alert('This is the menu button')}>
+//         <Image source={require('./assets/menuicon.png')} />
+//     </TouchableOpacity>
+//   ),
+//   headerLeftContainerStyle: {marginLeft: 20},
+//   headerRightContainerStyle: {marginRight: 20}}} 

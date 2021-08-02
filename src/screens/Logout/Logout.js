@@ -9,10 +9,14 @@ function Logout () {
     const [visible, setVisible] = useState(false);
     const nav = useNavigation();
 
-    const yesPressed = () => {
+    const yesPressed = async () => {
         setVisible(true);
-        firebase.auth().signOut().catch(error => alert(error.message));
-        nav.goBack();
+        try {
+            await firebase.auth().signOut();
+            nav.goBack();
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const noPressed = () => nav.goBack();

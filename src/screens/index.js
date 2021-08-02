@@ -8,6 +8,5 @@ export { default as RegisterCompetitor } from './Register/RegisterCompetitor';
 export { default as RegisterVendor } from './Register/RegisterVendor';
 export { default as RegisterPromoter } from './Register/RegisterPromoter';
 
-export { default as Events } from './Events/Events';
 export { default as CreateEvent } from './Events/CreateEvent';
 export { default as EventDetails } from './Events/EventDetails';
