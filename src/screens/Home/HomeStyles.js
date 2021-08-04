@@ -16,16 +16,25 @@ export default StyleSheet.create({
         marginBottom: 10,
         textAlign: 'center',
     },
+    loginLogoutButton: {
+        width: 35,
+        height: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 8,
+        marginHorizontal: 2,
+    },
     button: {
-        padding: 10,
-        width: 190,
-        height: 40,
+        paddingVertical: 10,
+        width: 135,
+        height: 35,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
         borderWidth: 2,
         borderColor: "#000",
-        margin: 5,
+        marginVertical: 8,
+        marginHorizontal: 2,
     },
     button__text: {
         fontWeight: "bold",
@@ -39,12 +48,13 @@ export default StyleSheet.create({
         borderRadius: 5,
         borderColor: 'red',
         padding: 10,
-        width: 350
+        width: 360
     },
     flatlist__ItemRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        paddingHorizontal: 10,
     },
     flatlist__TitleText: {
         fontSize: 21,

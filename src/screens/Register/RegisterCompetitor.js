@@ -38,6 +38,7 @@ function RegisterCompetitor() {
                         .set(data)
                         .then(() => {
                             alert('Registration Successful!');
+                            nav.navigate('Login');
                         })
                         .catch((error) => {
                             alert(error);

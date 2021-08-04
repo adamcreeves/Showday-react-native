@@ -38,7 +38,7 @@ function RegisterVendor() {
                         .set(data)
                         .then(() => {
                             alert('Registration Successful!');
-                            Keyboard.dismiss();
+                            nav.navigate('Login');
                         })
                         .catch((error) => {
                             alert(error);
